@@ -1,98 +1,50 @@
-
 # Text Summarizer
 
-Using Natural Language Processing (NLP) approaches, this Python software provides basic text summarizing functionality. The script examines a text and provides a brief summary by selecting the most important sentences.
+This is a text summarizer application written in Python and powered by the Natural Language Toolkit (NLTK). It takes in a piece of text and provides a random summary by selecting the most essential sentences based on word frequencies.
 
-## Specifications
+## Features
 
-- Using NLTK (Natural Language Toolkit), tokenizes the text into sentences and words.
-- Removes stop words to remove extraneous words - Determines word frequencies using the NLTK FreqDist module
-- Scores sentences based on word frequency.
-- Chooses the top sentences with the highest summaries.
+- Uses NLTK for tokenization, stop word removal, and frequency calculation
+- Generates a summary by selecting the top sentences based on word frequencies
+- Introduces randomness to provide a different result each time it runs
 
-### Setup
+## Installation
 
-1. Make sure Python is installed on your system.
-2. Execute the following command to install the appropriate NLTK library:
-   
-    Copy code
-    
-    `pip install nltk` 
-    
-3.  Download the necessary NLTK resources by running the Python shell:
-    
-    pythonCopy code
-    
-    `import nltk
-    nltk.download('punkt')
-    nltk.download('stopwords')` 
-    
+1. Make sure you have Python 3.x installed on your system.
+2. Clone this repository:
 
+   ```shell
+   git clone https://github.com/your-username/text-summarizer.git
+
+3.  Install the required dependencies using pip:
+    
+    shellCopy code
+    
+    `pip install -r requirements.txt`
 ## Usage
 
 pythonCopy code
 
-``import nltk
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize, sent_tokenize
-from nltk.probability import FreqDist
+`from text_summarizer import text_summarizer
 
-def text_summarizer(text, num_sentences=3):
-    # Tokenize the text into sentences
-    sentences = sent_tokenize(text)
+# Example usage
+text = """
+Instead of importing the whole nltk module, I simply imported the essential submodules (stopwords, word_tokenize, sent_tokenize, and FreqDist), which reduced unnecessary memory usage and improved efficiency.
 
-    # Tokenize the text into words
-    words = word_tokenize(text.lower())
+To make the code cleaner and easier to read, I deleted self-explanatory comments.
 
-    # Remove stop words
-    stop_words = set(stopwords.words("english"))
-    filtered_words = [word for word in words if word.casefold() not in stop_words]
+NLTK includes a FreqDist class for calculating word frequencies. I used it directly on the list of words, eliminating the need to manually cycle through each word and update the frequency distribution.
 
-    # Calculate word frequencies
-    fdist = FreqDist(filtered_words)
+To simplify the code, I used list comprehension instead of a standard for loop to calculate sentence scores.
+"""
 
-    # Assign scores to sentences based on word frequencies
-    sentence_scores = {}
-    for i, sentence in enumerate(sentences):
-        for word in word_tokenize(sentence.lower()):
-            if word in fdist:
-                if i in sentence_scores:
-                    sentence_scores[i] += fdist[word]
-                else:
-                    sentence_scores[i] = fdist[word]
+summary = text_summarizer(text)
+print(summary)` 
 
-    # Sort sentences by scores in descending order
-    sorted_sentences = sorted(sentence_scores, key=lambda x: sentence_scores[x], reverse=True)
+Replace the `text` variable with your own input text and adjust the `num_sentences` parameter if needed. Running the code will generate a summary based on the input text.
 
-    # Select the top `num_sentences` sentences for the summary
-    summary_sentences = sorted(sorted_sentences[:num_sentences])
+## License
 
-    # Create the summary
-    summary = ' '.join([sentences[i] for i in summary_sentences])
+This project is licensed under the [MIT License](https://chat.openai.com/c/LICENSE).
 
-    return summary`` 
-
-
-To utilize the 'text_summarizer' function, supply the text to be summarized as the first argument. You can use the 'num_sentences' argument to specify the number of sentences you want in the summary.
-
-Python code
-
-'text = "..." summary = text_summarizer(text, num_sentences=3) print(summary)' 
-
-## Examples
-
-Python code
-
-'text = "..." summary = text_summarizer(text, num_sentences=3) print(summary)' 
-
-## Contributing
-
-Contributions are welcome! If you identify any bugs or have recommendations for improvements, please start an issue or send a pull request.
-
-## Authorization
-
-This project is released under the MIT License. More information is available in the [LICENSE](https://chat.openai.com/LICENSE) file.
-
-## Acknowledgements
-
-This script is inspired by the field of Natural Language Processing (NLP) and makes use of the NLTK library. Thank you to the NLTK team for creating such a great resource for NLP tasks.
+Feel free to contribute, report issues, or suggest improvements by creating a pull request or submitting an issue.
